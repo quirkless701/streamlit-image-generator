@@ -39,7 +39,15 @@ def generate_image_from_prompt(prompt, width=1280, height=720, guidance_scale=7.
     return image
 
 # Streamlit UI
-st.title("YouTube Thumbnail Generator")
+st.set_page_config(page_title="YouTube Thumbnail Generator", layout="wide")
+st.title("**YouTube Thumbnail Generator**")
+
+# Add a sleek and fun description
+st.write("""
+    Transform your text prompts into eye-catching YouTube thumbnails with just a few clicks! 
+    Whether you need a bold title or a captivating background, our AI-powered generator has you covered. 
+    Simply enter your prompt and watch your ideas come to life.
+""")
 
 # Input fields for prompt and parameters
 prompt = st.text_input("Enter a text prompt", "")
@@ -54,7 +62,16 @@ if st.button("Generate Image"):
             # Generate the image
             image = generate_image_from_prompt(prompt, width, height, guidance_scale, num_inference_steps)
             
+            # Convert image to bytes for display
+            buf = io.BytesIO()
+            image.save(buf, format="PNG")
+            byte_img = buf.getvalue()
+            
             # Display the image
-            st.image(image, caption="Generated Image", use_column_width=True)
+            st.image(byte_img, caption="Generated Image", use_column_width=True, width=700)
+            
+            # Fullscreen button
+            if st.button("View Fullscreen"):
+                st.write(f'<img src="data:image/png;base64,{byte_img.encode("base64").decode()}" style="width: 100%; height: 100%;">', unsafe_allow_html=True)
     else:
         st.error("Please enter a prompt to generate an image.")
