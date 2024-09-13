@@ -39,14 +39,8 @@ def generate_image_from_prompt(prompt, width=1280, height=720, guidance_scale=7.
     return image
 
 # Streamlit UI
-st.title("Text to Image Generator")
+st.title("Youtube Thumbnail Generator")
 prompt = st.text_input("Enter a text prompt", "")
-
-# Additional options for the user to customize
-width = st.slider("Select image width", 512, 1920, 1280, step=64)
-height = st.slider("Select image height", 512, 1080, 720, step=64)
-guidance_scale = st.slider("Select guidance scale", 1.0, 20.0, 7.5)
-num_inference_steps = st.slider("Select number of inference steps", 10, 100, 50)
 
 if st.button("Generate Image"):
     if prompt:
