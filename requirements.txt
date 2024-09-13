@@ -1,0 +1,6 @@
+streamlit
+torch
+diffusers
+Pillow
+transformers
+protobuf==3.20.3
